@@ -1,3 +1,3 @@
-# Universal Servitor Architecture
+# Universal Unit Architecture
 
 - [Русский](ru.md)
