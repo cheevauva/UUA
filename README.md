@@ -1,3 +1,4 @@
 # Universal Unit Architecture
 
-- [Русский](ru.md)
+- Описание [Русский](ru.md)
+- Ревью описания от chatgpt [Русский](ru_chatgpt_review.md)
