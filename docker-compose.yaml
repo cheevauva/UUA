@@ -1,0 +1,9 @@
+services:
+  php:
+    build: .
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    ports:
+      - "8000:8000"
+    command: php -S 0.0.0.0:8000

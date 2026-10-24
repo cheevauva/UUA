@@ -1,0 +1,40 @@
+{
+    "name": "cheevauva/uua",
+    "description": "Universal Unit Architecture for PHP",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["architecture"],
+    "authors": [
+        {
+            "name": "cheevauva",
+            "email": "japanxt@ya.ru"
+        }
+    ],
+    "require": {
+        "php": ">=8.5",
+        "psr/container": "^2.0",
+        "psr/event-dispatcher": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^13.1",
+        "phpstan/phpstan": "^2.1@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "UUA\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "UUA\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
