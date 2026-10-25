@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UUA\Tests\Fixtures\DemoApp\Task\Exception;
+namespace UUA\DemoApp\Task\Exception;
 
 class TaskSaveWrongPasswordException extends \Exception
 {

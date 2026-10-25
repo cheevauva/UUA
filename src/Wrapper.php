@@ -21,11 +21,12 @@ abstract class Wrapper extends Unit
         $this->onAfter();
     }
 
-    abstract protected function onBefore(): void;
+    protected function onBefore(): void
+    {
+        
+    }
 
-    abstract protected function onAfter(): void;
-
-    public function from(object $object): void
+    protected function onAfter(): void
     {
         
     }

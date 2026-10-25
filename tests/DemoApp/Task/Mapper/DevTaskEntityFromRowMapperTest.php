@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace UUA\Tests\DemoApp\Task\Mapper;
 
-use UUA\Tests\Fixtures\DemoApp\Task\Mapper\TaskEntityFromRowMapper;
-use UUA\Tests\Fixtures\DemoApp\Task\Entity\TaskEntity;
+use UUA\DemoApp\Task\Mapper\TaskEntityFromRowMapper;
+use UUA\DemoApp\Task\Entity\TaskEntity;
 
 class DevTaskEntityFromRowMapperTest extends \UUA\Tests\DevUnitTestCase
 {

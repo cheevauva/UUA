@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace UUA\Tests\DemoApp\Task\DAO;
 
 use Psr\Container\ContainerInterface;
-use UUA\Tests\Fixtures\DemoApp\Task\DAO\TaskInsertDAO;
-use UUA\Tests\Fixtures\DemoApp\Task\Mapper\TaskEntityToRowMapper;
-use UUA\Tests\Fixtures\DemoApp\Task\Entity\TaskEntity;
+use UUA\DemoApp\Task\DAO\TaskInsertDAO;
+use UUA\DemoApp\Task\Mapper\TaskEntityToRowMapper;
+use UUA\DemoApp\Task\Entity\TaskEntity;
 
 class DevTaskInsertDAOTest extends \UUA\Tests\DevUnitTestCase
 {

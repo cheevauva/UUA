@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace UUA\Tests\Fixtures\DemoApp\Task\Mapper;
+namespace UUA\DemoApp\Task\Mapper;
 
 use Psr\Container\ContainerInterface;
-use UUA\Tests\Fixtures\DemoApp\Task\Entity\TaskEntity;
+use UUA\DemoApp\Task\Entity\TaskEntity;
 
 class TaskEntityFromRowMapper extends \UUA\Mapper
 {

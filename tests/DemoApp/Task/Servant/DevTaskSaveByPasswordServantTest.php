@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace UUA\Tests\DemoApp\Task\Servant;
 
 use Psr\Container\ContainerInterface;
-use UUA\Tests\Fixtures\DemoApp\Task\Servant\TaskSaveByPasswordServant;
-use UUA\Tests\Fixtures\DemoApp\Task\Servant\TaskSaveServant;
-use UUA\Tests\Fixtures\DemoApp\Task\Entity\TaskEntity;
-use UUA\Tests\Fixtures\DemoApp\Task\Exception\TaskSaveWrongPasswordException;
+use UUA\DemoApp\Task\Servant\TaskSaveByPasswordServant;
+use UUA\DemoApp\Task\Servant\TaskSaveServant;
+use UUA\DemoApp\Task\Entity\TaskEntity;
+use UUA\DemoApp\Task\Exception\TaskSaveWrongPasswordException;
 
 class DevTaskSaveByPasswordServantTest extends \UUA\Tests\DevUnitTestCase
 {

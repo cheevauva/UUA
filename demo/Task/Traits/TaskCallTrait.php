@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace UUA\Tests\Fixtures\DemoApp\Task\Traits;
+namespace UUA\DemoApp\Task\Traits;
 
 use Psr\Container\ContainerInterface;
-use UUA\Tests\Fixtures\DemoApp\Task\Entity\TaskEntity;
+use UUA\DemoApp\Task\Entity\TaskEntity;
 
 trait TaskCallTrait
 {

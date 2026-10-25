@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UUA\Tests\Fixtures\DemoApp\Database;
+namespace UUA\DemoApp\Database;
 
 use PDO;
 

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace UUA\Tests\Fixtures\DemoApp\Task\Servant;
+namespace UUA\DemoApp\Task\Servant;
 
-use UUA\Tests\Fixtures\DemoApp\Task\DAO\TaskUpdateDAO;
-use UUA\Tests\Fixtures\DemoApp\Task\DAO\TaskInsertDAO;
+use UUA\DemoApp\Task\DAO\TaskUpdateDAO;
+use UUA\DemoApp\Task\DAO\TaskInsertDAO;
 
 class TaskSaveServant extends \UUA\Servant
 {
 
-    use \UUA\Tests\Fixtures\DemoApp\Task\Traits\TaskCallTrait;
+    use \UUA\DemoApp\Task\Traits\TaskCallTrait;
     use \UUA\Traits\CurrentTimeTrait;
 
     #[\Override]

@@ -9,7 +9,23 @@
     xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
     displayDetailsOnTestsThatTriggerDeprecations="true"
     >
-    <coverage/>
+    <source>
+        <include>
+            <directory suffix=".php">.</directory>
+        </include>
+        <exclude>
+            <directory>tests</directory>
+            <directory>vendor</directory>
+        </exclude>
+    </source>
+
+    <coverage>
+        <report>
+            <html outputDirectory="coverage/coverage-report"/>
+            <clover outputFile="coverage/coverage.xml"/>
+            <!--text outputFile="php://stdout"/-->
+        </report>
+    </coverage>
     <testsuites>
         <testsuite name="Twig Test Suite">
             <directory>./tests/</directory>

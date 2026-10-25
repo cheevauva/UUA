@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace UUA\Tests\DemoApp\Task\Servant;
 
 use Psr\Container\ContainerInterface;
-use UUA\Tests\Fixtures\DemoApp\Task\DAO\TaskUpdateDAO;
-use UUA\Tests\Fixtures\DemoApp\Task\DAO\TaskInsertDAO;
-use UUA\Tests\Fixtures\DemoApp\Task\Entity\TaskEntity;
-use UUA\Tests\Fixtures\DemoApp\Task\Servant\TaskSaveServant;
+use UUA\DemoApp\Task\DAO\TaskUpdateDAO;
+use UUA\DemoApp\Task\DAO\TaskInsertDAO;
+use UUA\DemoApp\Task\Entity\TaskEntity;
+use UUA\DemoApp\Task\Servant\TaskSaveServant;
 
 class DevTaskSaveServantTest extends \UUA\Tests\DevUnitTestCase
 {

@@ -14,22 +14,18 @@ trait WrappingTrait
 
     protected function wrapping(UnitInterface $unit): UnitInterface
     {
-        $decorators = $this->container->get('wrappers')[$unit::class] ?? null;
-  
-        if (empty($decorators)) {
-            return $unit;
-        }
+        $wrappers = $this->container->get('wrappers')[$unit::class] ?? [];
 
         $prev = $unit;
 
-        foreach ($decorators as $decorator) {
-            $next = Wrapper::as($decorator::new($this->container));
+        foreach ($wrappers as $wrapper) {
+            $next = Wrapper::as($wrapper::new($this->container));
             $next->rootUnit = $unit;
             $next->nextUnit = $prev;
 
             $prev = $next;
         }
-        
+
         return $next ?? $unit;
     }
 }

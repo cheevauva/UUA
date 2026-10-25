@@ -6,7 +6,7 @@ namespace UUA\Tests;
 
 use Psr\Container\ContainerInterface;
 use UUA\Container\Container;
-use UUA\Tests\Fixtures\DemoApp\Database\DatabaseMain;
+use UUA\DemoApp\Database\DatabaseMain;
 use PDO;
 
 abstract class DevUnitTestCase extends \PHPUnit\Framework\TestCase

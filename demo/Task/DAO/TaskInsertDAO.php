@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace UUA\Tests\Fixtures\DemoApp\Task\DAO;
+namespace UUA\DemoApp\Task\DAO;
 
-use UUA\Tests\Fixtures\DemoApp\Task\Mapper\TaskEntityToRowMapper;
+use UUA\DemoApp\Task\Mapper\TaskEntityToRowMapper;
 
-class TaskUpdateDAO extends \UUA\DAO
+class TaskInsertDAO extends \UUA\DAO
 {
 
-    use \UUA\Tests\Fixtures\DemoApp\Database\DatabaseMainTrait;
-    use \UUA\Tests\Fixtures\DemoApp\Task\Traits\TaskCallTrait;
+    use \UUA\DemoApp\Database\DatabaseMainTrait;
+    use \UUA\DemoApp\Task\Traits\TaskCallTrait;
 
     /**
      * @var array<string, mixed>
@@ -24,13 +24,13 @@ class TaskUpdateDAO extends \UUA\DAO
         //
         $stmt = $this->db()->prepare($this->getSQL());
         $stmt->execute($this->getParams());
+
+        $this->task->id = (int) $this->db()->lastInsertId();
     }
 
     protected function getSQL(): string
     {
-        $columns = implode(', ', array_map(fn(string $column) => sprintf('%s = :%s', $column, $column), array_keys($this->row)));
-
-        return sprintf('UPDATE tasks SET %s WHERE id = :id', $columns);
+        return sprintf('INSERT INTO tasks (%s) VALUES (:%s)', implode(', ', array_keys($this->row)), implode(', :', array_keys($this->row)));
     }
 
     /**

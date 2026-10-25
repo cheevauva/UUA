@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace UUA\Tests\Fixtures\DemoApp\Task\Servant;
+namespace UUA\DemoApp\Task\Servant;
 
-use UUA\Tests\Fixtures\DemoApp\Task\Entity\TaskEntity;
-use UUA\Tests\Fixtures\DemoApp\Task\Servant\TaskSaveServant;
-use UUA\Tests\Fixtures\DemoApp\Task\Exception\TaskSaveWrongPasswordException;
+use UUA\DemoApp\Task\Entity\TaskEntity;
+use UUA\DemoApp\Task\Servant\TaskSaveServant;
+use UUA\DemoApp\Task\Exception\TaskSaveWrongPasswordException;
 
 class TaskSaveByPasswordServant extends \UUA\Servant
 {

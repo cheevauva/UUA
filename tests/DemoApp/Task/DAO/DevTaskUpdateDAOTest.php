@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace UUA\Tests\DemoApp\Task\DAO;
 
 use Psr\Container\ContainerInterface;
-use UUA\Tests\Fixtures\DemoApp\Task\DAO\TaskUpdateDAO;
-use UUA\Tests\Fixtures\DemoApp\Task\Mapper\TaskEntityToRowMapper;
-use UUA\Tests\Fixtures\DemoApp\Task\Entity\TaskEntity;
+use UUA\DemoApp\Task\DAO\TaskUpdateDAO;
+use UUA\DemoApp\Task\Mapper\TaskEntityToRowMapper;
+use UUA\DemoApp\Task\Entity\TaskEntity;
 
 class DevTaskUpdateDAOTest extends \UUA\Tests\DevUnitTestCase
 {
@@ -38,7 +38,7 @@ class DevTaskUpdateDAOTest extends \UUA\Tests\DevUnitTestCase
         $task->dateCreated = new \DateTimeImmutable('2020-02-02 02:02:02');
 
         TaskUpdateDAO::call($this->container, $task);
-
+        
         self::assertEquals('UPDATE tasks SET id = :id, description = :description WHERE id = :id', self::$sql);
         self::assertEquals([
             'id' => 1,

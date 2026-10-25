@@ -3,6 +3,7 @@ services:
     build: .
     volumes:
       - .:/var/www/html
+      - ./hosts.txt:/etc/hosts.custom:ro
     working_dir: /var/www/html
     ports:
       - "8000:8000"

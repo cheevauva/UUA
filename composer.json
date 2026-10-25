@@ -26,7 +26,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "UUA\\Tests\\": "tests/"
+            "UUA\\Tests\\": "tests/",
+            "UUA\\DemoApp\\": "demo/"
         }
     },
     "config": {
