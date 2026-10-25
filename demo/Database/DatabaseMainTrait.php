@@ -13,6 +13,6 @@ trait DatabaseMainTrait
 
     public function db(): PDO
     {
-        return $this->container->get(DatabaseMain::class);
+        return DatabaseMain::singleton($this->container);
     }
 }

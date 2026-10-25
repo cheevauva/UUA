@@ -13,7 +13,8 @@ trait EventDispatcherTrait
 
     protected function eventDispatcher(): EventDispatcherInterface
     {
+        // @phpstan-ignore-next-line
         return $this->container->get(EventDispatcherInterface::class);
     }
-
+    
 }

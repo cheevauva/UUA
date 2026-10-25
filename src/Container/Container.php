@@ -16,10 +16,17 @@ class Container implements \Psr\Container\ContainerInterface
      */
     protected array $assetsResolved = [];
 
+    /**
+     * @var array<string, mixed>
+     */
+    protected array $assets = [];
+
+    public const ASSETS_NAME = '__assets8401ysnl';
+
     public function __construct(\Closure $assets)
     {
-        $this->assetsResolved[spl_object_hash($this)] = $assets($this);
-        $this->assetsResolved[FactoryInterface::class] = new Factory($this);
+        $this->assetsResolved[self::ASSETS_NAME] = $this->assets = $assets($this);
+        $this->assetsResolved[FactoryInterface::class] = $this->assets[FactoryInterface::class] ?? new Factory($this);
     }
 
     #[\Override]
@@ -29,30 +36,26 @@ class Container implements \Psr\Container\ContainerInterface
             if (class_exists($id, true) || interface_exists($id, true)) {
                 $this->assetsResolved[$id] = $this->factory()->make($id);
             } else {
-                $this->assetsResolved[$id] = $this->assetsResolved[spl_object_hash($this)][$id] ?? null;
+                $this->assetsResolved[$id] = $this->assets[$id] ?? throw new ContainerNotFoundException($id);
             }
         }
 
-
-        if (!isset($this->assetsResolved[$id])) {
-            throw new ContainerNotFoundException($id);
-        }
-        
-        if ($this->assetsResolved[$id] instanceof  \Closure) {
+        if ($this->assetsResolved[$id] instanceof \Closure) {
             return $this->assetsResolved[$id]($this);
         }
-  
+
         return $this->assetsResolved[$id];
     }
 
     protected function factory(): FactoryInterface
     {
+        // @phpstan-ignore-next-line
         return $this->get(FactoryInterface::class);
     }
 
     #[\Override]
     public function has(string $id): bool
     {
-        return isset($this->assets[$id]) || isset($this->assetsResolved[spl_object_hash($this)][$id]);
+        return isset($this->assetsResolved[$id]) || isset($this->assets[$id]);
     }
 }

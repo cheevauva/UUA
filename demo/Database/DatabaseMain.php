@@ -6,5 +6,6 @@ namespace UUA\DemoApp\Database;
 
 class DatabaseMain extends \PDO
 {
-    
+
+    use \UUA\Traits\BuildTrait;
 }

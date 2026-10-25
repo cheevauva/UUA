@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace UUA\Traits;
 
+use UUA\ArrayObjectStrict;
+
 trait EnvTrait
 {
 
     use ContainerTrait;
 
-    protected function env(): \UUA\ArrayObjectStrict
+    protected function env(): ArrayObjectStrict
     {
-        return new \UUA\ArrayObjectStrict($this->container->get('env'));
+        // @phpstan-ignore-next-line
+        return new ArrayObjectStrict($this->container->get('env'));
     }
-
 }

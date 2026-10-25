@@ -4,40 +4,22 @@ declare(strict_types=1);
 
 namespace UUA\DemoApp\Task\Mapper;
 
-use Psr\Container\ContainerInterface;
 use UUA\DemoApp\Task\Entity\TaskEntity;
 
 class TaskEntityFromRowMapper extends \UUA\Mapper
 {
 
-    public TaskEntity $task;
+    use \UUA\DemoApp\Traits\MapperFromRowTrait;
 
-    /**
-     * @var array<string, mixed>
-     */
-    public array $row;
+    public TaskEntity $task;
 
     #[\Override]
     public function serve(): void
     {
         $task = $this->task = new TaskEntity;
-        $task->id = intval($this->row['id'] ?? throw new \Exception('row.id is undefined'));
-        $task->description = strval($this->row['description'] ?? throw new \Exception('row.description is undefined'));
-        $task->dateCreated = new \DateTimeImmutable($this->row['date_created'] ?? throw new \Exception('row.date_created is undefined'));
-        $task->dateUpdated = new \DateTimeImmutable($this->row['date_updated'] ?? throw new \Exception('row.date_updated is undefined'));
-    }
-
-    /**
-     * @param ContainerInterface $container
-     * @param array<string, mixed> $row
-     * @return self
-     */
-    public static function call(ContainerInterface $container, array $row): self
-    {
-        $self = self::new($container);
-        $self->row = $row;
-        $self->serve();
-
-        return $self;
+        $task->id = $this->int('id');
+        $task->description = $this->string('description');
+        $task->dateCreated = $this->dateTime('date_created');
+        $task->dateUpdated = $this->dateTime('date_updated');
     }
 }

@@ -27,8 +27,8 @@ abstract class DevUnitTestCase extends \PHPUnit\Framework\TestCase
 
         $this->container = $this->newContainer(function (ContainerInterface $c) {
             $mocks = $this->mocks($c);
-            $mocks[DatabaseMain::class] = fn() => new PDO('sqlite::memory:');
-            $mocks['env'] = fn() => self::$env;
+            $mocks[DatabaseMain::class] ??= fn() => new DatabaseMain('sqlite::memory:');
+            $mocks['env'] ??= fn() => self::$env;
             
             return $mocks;
         });

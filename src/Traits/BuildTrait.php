@@ -6,6 +6,7 @@ namespace UUA\Traits;
 
 use Psr\Container\ContainerInterface;
 use UUA\FactoryInterface;
+use UUA\Exception\ClassMismatchException;
 
 trait BuildTrait
 {
@@ -16,25 +17,21 @@ trait BuildTrait
     {
         $factory = $container->get(FactoryInterface::class);
 
-        if (!is_object($factory)) {
-            throw new \RuntimeException(sprintf('Ожидался объект для зависимости %s', FactoryInterface::class));
+        if ($factory instanceof FactoryInterface) {
+            return static::as($factory->make(static::class));
         }
 
-        if (!($factory instanceof FactoryInterface)) {
-            throw new \RuntimeException(sprintf('Ожидался %s для зависимости %s', FactoryInterface::class, get_class($factory)));
-        }
-
-        return static::as($factory->make(static::class));
+        throw new ClassMismatchException(sprintf('Expected dependency object for %s, received %s', FactoryInterface::class, get_debug_type($factory)));
     }
 
     public static function singleton(ContainerInterface $container): static
     {
-        $signleton = $container->get(static::class);
+        $singleton = $container->get(static::class);
 
-        if (!is_object($signleton)) {
-            throw new \RuntimeException(sprintf('Ожидался объект для зависимости %s', static::class));
+        if ($singleton instanceof static) {
+            return static::as($singleton);
         }
 
-        return static::as($signleton);
+        throw new ClassMismatchException(sprintf('Expected %s, but received %s', static::class, get_debug_type($singleton)));
     }
 }

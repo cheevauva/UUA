@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace UUA;
 
+use UUA\Container\Container;
+use UUA\Exception\DuplicateInstanceException;
+use UUA\Exception\InvalidFactoryResultException;
+
 class Factory implements FactoryInterface
 {
 
     /**
-     * @var array<string, string|\Closure|null>
+     * @var array<string, mixed>
      */
     protected array $assets;
 
@@ -16,33 +20,30 @@ class Factory implements FactoryInterface
 
     protected function init(): void
     {
-        $this->assets = $this->container->get(spl_object_hash($this->container));
+        // @phpstan-ignore-next-line
+        $this->assets = $this->container->get(Container::ASSETS_NAME);
     }
 
     #[\Override]
     public function make(string $id): object
     {
-        $this->assets[$id] ??= null;
+        $asset = $this->assets[$id] ?? null;
 
-        $isClosure = $this->assets[$id] instanceof \Closure;
-        $isClassName = !$isClosure && is_string($this->assets[$id]) && class_exists($this->assets[$id], true);
+        $isClosure = $asset instanceof \Closure;
+        $isClassName = !$isClosure && is_string($asset) && class_exists($asset, true);
 
-        if (!empty($this->assets[$id]) && !$isClassName && !$isClosure) {
-            throw new \Exception(sprintf('Инстанс класса %s уже был cоздан, возможно стоит использовать анонимную функцию', $id));
+        if ($asset && !$isClassName && !$isClosure) {
+            throw new DuplicateInstanceException(sprintf('Instance for "%s" already exists. Use a Closure for lazy loading', $id));
         }
 
-        if ($this->assets[$id] instanceof \Closure) {
-            $object = ($this->assets[$id])($this->container);
+        if ($isClosure) {
+            $object = ($asset)($this->container);
 
             if (!is_object($object)) {
-                throw new \Exception(sprintf('Ожидался объект инстанс класса %s', $id));
+                throw new InvalidFactoryResultException(sprintf('Factory closure for "%s" did not return an object.', $id));
             }
 
             return $object;
-        }
-
-        if ($isClassName && is_callable(new $this->assets[$id])) {
-            return (new $this->assets[$id])($this->container);
         }
 
         return new $id($this->container);
