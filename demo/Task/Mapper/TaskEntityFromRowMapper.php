@@ -9,7 +9,7 @@ use UUA\DemoApp\Task\Entity\TaskEntity;
 class TaskEntityFromRowMapper extends \UUA\Mapper
 {
 
-    use \UUA\DemoApp\Traits\MapperFromRowTrait;
+    use \UUA\DemoApp\App\Traits\MapperFromRowTrait;
 
     public TaskEntity $task;
 

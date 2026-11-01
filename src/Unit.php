@@ -8,5 +8,6 @@ abstract class Unit implements UnitInterface
 {
 
     use Traits\AsTrait;
-
+    use Traits\ContainerTrait;
+    use Traits\BuildTrait;
 }

@@ -12,7 +12,7 @@ use UUA\DemoApp\Task\Exception\TaskEntityNotFoundException;
 class TaskGetByIdDAO extends \UUA\DAO
 {
 
-    use \UUA\DemoApp\Database\DatabaseMainTrait;
+    use \UUA\DemoApp\App\Database\DatabaseMainTrait;
     use \UUA\Traits\WrapAndServeTrait;
 
     public int $id;

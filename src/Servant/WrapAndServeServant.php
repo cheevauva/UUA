@@ -37,11 +37,14 @@ class WrapAndServeServant extends Servant
             $unitName = get_parent_class($unit);
         }
 
-        $wrappersForChain = $this->wrappers[$unitName][$caller::class] ?? ($this->wrappers[$unitName]['any'] ?? []);
+        $wrappers = [
+            ...$this->wrappers[$unitName]['any'] ?? [],
+            ...$this->wrappers[$unitName][$caller::class] ?? [],
+        ];
 
         $prev = $unit;
 
-        foreach ($wrappersForChain as $wrapper) {
+        foreach ($wrappers as $wrapper) {
             $next = Wrapper::as($wrapper::new($this->container));
             $next->rootUnit = $unit;
             $next->nextUnit = $prev;

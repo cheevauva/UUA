@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UUA\Tests;
 
 use Psr\Container\ContainerInterface;
-use UUA\DemoApp\Database\DatabaseMain;
+use UUA\DemoApp\App\Database\DatabaseMain;
 use UUA\FactoryInterface;
 use UUA\Exception\DuplicateInstanceException;
 use UUA\Exception\InvalidFactoryResultException;

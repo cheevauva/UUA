@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UUA\DemoApp\Traits;
+namespace UUA\DemoApp\App\Traits;
 
 use Psr\Container\ContainerInterface;
 

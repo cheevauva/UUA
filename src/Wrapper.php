@@ -9,9 +9,6 @@ use UUA\Unit;
 abstract class Wrapper extends Unit
 {
 
-    use Traits\ContainerTrait;
-    use Traits\BuildTrait;
-
     public Unit $rootUnit;
     public Unit $nextUnit;
 
@@ -26,5 +23,4 @@ abstract class Wrapper extends Unit
     abstract protected function onBefore(): void;
 
     abstract protected function onAfter(): void;
-    
 }

@@ -6,9 +6,9 @@ namespace UUA\Tests;
 
 use Psr\Container\ContainerInterface;
 use UUA\Container\Container;
-use UUA\DemoApp\Database\DatabaseMain;
-use UUA\DemoApp\Bootstrap;
-use PDO;
+use UUA\DemoApp\App\Database\DatabaseMain;
+use UUA\DemoApp\App\Bootstrap;
+use UUA\DemoApp\App\Servant\FileLoggerServant;
 
 abstract class DevUnitTestCase extends \PHPUnit\Framework\TestCase
 {
@@ -43,6 +43,10 @@ abstract class DevUnitTestCase extends \PHPUnit\Framework\TestCase
                 return new Container(function (ContainerInterface $c) {
                     $mocks = array_merge($this->assets($c), ($this->mocks)($c));
                     $mocks[DatabaseMain::class] ??= fn() => new DatabaseMain('sqlite::memory:');
+                    $mocks[FileLoggerServant::class] = fn() => new class($c) extends FileLoggerServant {
+
+                        public string $filename = '/dev/null';
+                    };
                     $mocks['env'] = fn() => array_merge($mocks['env'], ($this->env)());
 
                     return $mocks;

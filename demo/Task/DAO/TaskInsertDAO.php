@@ -9,7 +9,7 @@ use UUA\DemoApp\Task\Mapper\TaskEntityToRowMapper;
 class TaskInsertDAO extends \UUA\DAO
 {
 
-    use \UUA\DemoApp\Database\DatabaseMainTrait;
+    use \UUA\DemoApp\App\Database\DatabaseMainTrait;
     use \UUA\DemoApp\Task\Traits\TaskCallTrait;
 
     /**

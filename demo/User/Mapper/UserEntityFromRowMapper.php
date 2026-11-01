@@ -9,7 +9,7 @@ use UUA\DemoApp\User\Entity\UserEntity;
 class UserEntityFromRowMapper extends \UUA\Mapper
 {
 
-    use \UUA\DemoApp\Traits\MapperFromRowTrait;
+    use \UUA\DemoApp\App\Traits\MapperFromRowTrait;
 
     public UserEntity $user;
 

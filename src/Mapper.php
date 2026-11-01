@@ -6,7 +6,5 @@ namespace UUA;
 
 abstract class Mapper extends Unit
 {
-
-    use Traits\ContainerTrait;
-    use Traits\BuildTrait;
+    
 }

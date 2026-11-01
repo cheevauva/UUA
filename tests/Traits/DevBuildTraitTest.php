@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace UUA\Tests\Traits;
 
 use Psr\Container\ContainerInterface;
-use UUA\DemoApp\Database\DatabaseMain;
+use UUA\DemoApp\App\Database\DatabaseMain;
 use UUA\FactoryInterface;
 use UUA\Exception\ClassMismatchException;
 use UUA\Servant\WrapAndServeServant;
@@ -40,7 +40,7 @@ class DevBuildTraitTest extends \UUA\Tests\DevUnitTestCase
     public function testFactoryNotImplementedFactoryInterfaceForSingleton(): void
     {
         $this->expectException(ClassMismatchException::class);
-        $this->expectExceptionMessageIs('Expected UUA\DemoApp\Database\DatabaseMain, but received stdClass');
+        $this->expectExceptionMessageIs('Expected UUA\DemoApp\App\Database\DatabaseMain, but received stdClass');
 
         $container = $this->newContainer(function (ContainerInterface $c) {
             return [

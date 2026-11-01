@@ -2,12 +2,16 @@
 
 declare(strict_types=1);
 
-namespace UUA\DemoApp;
+namespace UUA\DemoApp\App;
 
+use Psr\Container\ContainerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use UUA\DemoApp\Task\DAO\TaskGetByIdDAO;
 use UUA\DemoApp\User\Wrapper\UserRetrieveWhenTaskGetByIdWrapper;
-use Psr\Container\ContainerInterface;
+use UUA\Servant\EventDispatcherServant;
 use UUA\Container\Container;
+use UUA\DemoApp\App\Event\WrongPasswordEvent;
+use UUA\DemoApp\App\EventListener\LogWrongPasswordEventListener;
 
 class Bootstrap
 {
@@ -25,11 +29,17 @@ class Bootstrap
     {
         return [
             'env' => $_ENV,
+            EventDispatcherInterface::class => fn() => EventDispatcherServant::singleton($c),
             'wrappers' => [
                 TaskGetByIdDAO::class => [
                     'any' => [
                         UserRetrieveWhenTaskGetByIdWrapper::class,
                     ],
+                ],
+            ],
+            'events' => [
+                WrongPasswordEvent::class => [
+                    LogWrongPasswordEventListener::class,
                 ],
             ],
         ];
