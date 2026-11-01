@@ -7,10 +7,14 @@ namespace UUA\DemoApp\Task\Entity;
 class TaskEntity
 {
 
+    use \UUA\Traits\AsTrait;
+    use \UUA\Traits\AttributesTrait;
+
     public ?int $id;
     public string $description;
     public \DateTimeImmutable $dateCreated;
     public \DateTimeImmutable $dateUpdated;
+    public ?int $assignedUserId = null;
 
     public function __construct()
     {

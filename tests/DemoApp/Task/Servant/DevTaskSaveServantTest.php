@@ -30,8 +30,6 @@ class DevTaskSaveServantTest extends \UUA\Tests\DevUnitTestCase
     {
         $task = new TaskEntity;
         $task->id = 1;
-        $task->description = 'Description';
-        $task->dateCreated = new \DateTimeImmutable('2020-02-02 01:01:01');
 
         TaskSaveServant::call($this->container, $task);
 
@@ -43,29 +41,12 @@ class DevTaskSaveServantTest extends \UUA\Tests\DevUnitTestCase
     {
         $task = new TaskEntity;
         $task->id = null;
-        $task->description = 'Description';
-        $task->dateCreated = new \DateTimeImmutable('2020-02-02 01:01:01');
 
         TaskSaveServant::call($this->container, $task);
 
         self::assertNull(self::$update);
         self::assertEquals($task, self::$insert?->task);
         self::assertEquals(1, self::$insert?->task->id);
-    }
-
-    public function testDateUpdatePassToTask(): void
-    {
-        $task = new TaskEntity;
-        $task->id = null;
-        $task->description = 'Description';
-        $task->dateCreated = new \DateTimeImmutable('2020-02-02 01:01:01');
-
-        $save = TaskSaveServant::new($this->container);
-        $save->task = $task;
-        $save->currentTime = new \DateTimeImmutable('2020-02-02 01:02:03');
-        $save->serve();
-
-        self::assertEquals(new \DateTimeImmutable('2020-02-02 01:02:03'), $task->dateUpdated);
     }
 
     #[\Override]

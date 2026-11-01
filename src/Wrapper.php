@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace UUA;
 
+use UUA\Unit;
+
 abstract class Wrapper extends Unit
 {
 
     use Traits\ContainerTrait;
     use Traits\BuildTrait;
 
-    public UnitInterface $rootUnit;
-    public UnitInterface $nextUnit;
+    public Unit $rootUnit;
+    public Unit $nextUnit;
 
     #[\Override]
     public function serve(): void
@@ -21,13 +23,8 @@ abstract class Wrapper extends Unit
         $this->onAfter();
     }
 
-    protected function onBefore(): void
-    {
-        
-    }
+    abstract protected function onBefore(): void;
 
-    protected function onAfter(): void
-    {
-        
-    }
+    abstract protected function onAfter(): void;
+    
 }

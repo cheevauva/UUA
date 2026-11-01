@@ -11,14 +11,10 @@ class TaskSaveServant extends \UUA\Servant
 {
 
     use \UUA\DemoApp\Task\Traits\TaskCallTrait;
-    use \UUA\Traits\CurrentTimeTrait;
 
     #[\Override]
     public function serve(): void
     {
-        $this->task->dateCreated ??= $this->currentTime();
-        $this->task->dateUpdated = $this->currentTime();
-
         if (isset($this->task->id)) {
             TaskUpdateDAO::call($this->container, $this->task);
         } else {

@@ -8,9 +8,13 @@ use Psr\Container\ContainerInterface;
 use UUA\DemoApp\Database\DatabaseMain;
 use UUA\FactoryInterface;
 use UUA\Exception\ClassMismatchException;
+use UUA\Servant\WrapAndServeServant;
+use UUA\Servant;
 
 class DevBuildTraitTest extends \UUA\Tests\DevUnitTestCase
 {
+
+    public static int $wrapAndServeInitCalls;
 
     #[\Override]
     public function testMain(): void
@@ -45,5 +49,43 @@ class DevBuildTraitTest extends \UUA\Tests\DevUnitTestCase
         });
 
         DatabaseMain::singleton($container);
+    }
+
+    public function testInitCallOnce(): void
+    {
+        self::$wrapAndServeInitCalls = 0;
+        
+        $container = $this->newContainer(function (ContainerInterface $c) {
+            return [
+                WrapAndServeServant::class => fn() => new class($c) extends WrapAndServeServant {
+
+                    #[\Override]
+                    protected function init(): void
+                    {
+                        parent::init();
+
+                        DevBuildTraitTest::$wrapAndServeInitCalls++;
+                    }
+                },
+            ];
+        });
+
+        $unit = new class($container) extends Servant {
+
+            #[\Override]
+            public function serve(): void
+            {
+                
+            }
+        };
+
+        for ($x = 0; $x <= 2; $x++) {
+            $wrapAndServe = WrapAndServeServant::singleton($container);
+            $wrapAndServe->unit = $unit;
+            $wrapAndServe->caller = $this;
+            $wrapAndServe->serve();
+        }
+
+        self::assertEquals(self::$wrapAndServeInitCalls, 1);
     }
 }
