@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace UUA\Tests;
 
 use Psr\Container\ContainerInterface;
-use UUA\Container\Container;
 use UUA\DemoApp\App\Database\DatabaseMain;
 use UUA\DemoApp\App\Bootstrap;
 use UUA\DemoApp\App\Servant\FileLoggerServant;
@@ -37,20 +36,22 @@ abstract class DevUnitTestCase extends \PHPUnit\Framework\TestCase
             public \Closure $mocks;
             public \Closure $env;
 
+            /**
+             * @param ContainerInterface $c
+             * @return array<string, mixed>
+             */
             #[\Override]
-            public function newContainer(): ContainerInterface
+            protected function assets(ContainerInterface $c): array
             {
-                return new Container(function (ContainerInterface $c) {
-                    $mocks = array_merge($this->assets($c), ($this->mocks)($c));
-                    $mocks[DatabaseMain::class] ??= fn() => new DatabaseMain('sqlite::memory:');
-                    $mocks[FileLoggerServant::class] = fn() => new class($c) extends FileLoggerServant {
+                $mocks = array_merge(parent::assets($c), ($this->mocks)($c));
+                $mocks[DatabaseMain::class] ??= fn() => new DatabaseMain('sqlite::memory:');
+                $mocks[FileLoggerServant::class] = fn() => new class($c) extends FileLoggerServant {
 
-                        public string $filename = '/dev/null';
-                    };
-                    $mocks['env'] = fn() => array_merge($mocks['env'], ($this->env)());
+                    public string $filename = '/dev/null';
+                };
+                $mocks['env'] = fn() => array_merge($mocks['env'], ($this->env)());
 
-                    return $mocks;
-                });
+                return $mocks;
             }
         };
         $bootstrap->mocks = $mocks;

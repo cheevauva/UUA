@@ -36,7 +36,7 @@ class UserGetByIdDAO extends \UUA\DAO
 
     protected function getSQL(): string
     {
-        return 'SELECT * FROM tasks WHERE id = :id';
+        return 'SELECT * FROM users WHERE id = :id';
     }
 
     /**
