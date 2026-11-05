@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace UUA\Tests;
 
 use Psr\Container\ContainerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use UUA\Unit;
+use UUA\Servant\WrapAndServeServant;
 use UUA\DemoApp\App\Database\DatabaseMain;
 use UUA\DemoApp\App\Bootstrap;
 use UUA\DemoApp\App\Servant\FileLoggerServant;
@@ -45,7 +48,7 @@ abstract class DevUnitTestCase extends \PHPUnit\Framework\TestCase
             {
                 $mocks = array_merge(parent::assets($c), ($this->mocks)($c));
                 $mocks[DatabaseMain::class] ??= fn() => new DatabaseMain('sqlite::memory:');
-                $mocks[FileLoggerServant::class] = fn() => new class($c) extends FileLoggerServant {
+                $mocks[FileLoggerServant::class] ??= fn() => new class($c) extends FileLoggerServant {
 
                     public string $filename = '/dev/null';
                 };
@@ -58,6 +61,20 @@ abstract class DevUnitTestCase extends \PHPUnit\Framework\TestCase
         $bootstrap->env = fn() => static::$env;
 
         return $bootstrap->newContainer();
+    }
+
+    protected function eventDispatcher(): EventDispatcherInterface
+    {
+        // @phpstan-ignore-next-line
+        return $this->container->get(EventDispatcherInterface::class);
+    }
+
+    protected function wrapAndServe(Unit $unit): void
+    {
+        $wrapAndServe = WrapAndServeServant::singleton($this->container);
+        $wrapAndServe->caller = $this;
+        $wrapAndServe->unit = $unit;
+        $wrapAndServe->serve();
     }
 
     /**

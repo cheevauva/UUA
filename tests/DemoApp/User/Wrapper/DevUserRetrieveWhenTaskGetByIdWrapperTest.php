@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace UUA\Tests\DemoApp\Task\Wrapper;
+namespace UUA\Tests\DemoApp\User\Wrapper;
 
 use Psr\Container\ContainerInterface;
 use UUA\DemoApp\Task\DAO\TaskGetByIdDAO;
@@ -36,7 +36,8 @@ class DevUserRetrieveWhenTaskGetByIdWrapperTest extends \UUA\Tests\DevUnitTestCa
 
         $taskById = TaskGetByIdDAO::new($this->container);
         $taskById->id = 1;
-        $taskById->wrapAndServe($this);
+        
+        $this->wrapAndServe($taskById);
 
         $user = UserEntity::as($taskById->task->attr('user'));
 
@@ -48,7 +49,8 @@ class DevUserRetrieveWhenTaskGetByIdWrapperTest extends \UUA\Tests\DevUnitTestCa
     {
         $taskById = TaskGetByIdDAO::new($this->container);
         $taskById->id = 1;
-        $taskById->wrapAndServe($this);
+        
+        $this->wrapAndServe($taskById);
 
         $user = $taskById->task->attr('user');
 

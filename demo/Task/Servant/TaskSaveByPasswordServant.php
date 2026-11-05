@@ -8,6 +8,7 @@ use UUA\DemoApp\Task\Entity\TaskEntity;
 use UUA\DemoApp\Task\Servant\TaskSaveServant;
 use UUA\DemoApp\Task\Exception\TaskSaveWrongPasswordException;
 use UUA\DemoApp\App\Event\WrongPasswordEvent;
+use UUA\DemoApp\App\Event\CounterEvent;
 
 class TaskSaveByPasswordServant extends \UUA\Servant
 {
@@ -20,13 +21,15 @@ class TaskSaveByPasswordServant extends \UUA\Servant
     #[\Override]
     public function serve(): void
     {
+        (new CounterEvent())->dispatch($this->eventDispatcher());
+
         try {
             $this->process();
         } catch (TaskSaveWrongPasswordException $ex) {
             $event = new WrongPasswordEvent();
             $event->wrongPassword = $this->password;
             $event->dispatch($this->eventDispatcher());
-            
+
             throw $ex;
         }
 

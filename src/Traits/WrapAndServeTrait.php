@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace UUA\Traits;
 
-
 use UUA\Servant\WrapAndServeServant;
 use UUA\Unit;
-use UUA\Wrapper;
 
 trait WrapAndServeTrait
 {
 
     use ContainerTrait;
 
-    public function wrapAndServe(object $caller): void
+    protected function wrapAndServe(Unit $unit): void
     {
         $wrapAndServe = WrapAndServeServant::singleton($this->container);
-        $wrapAndServe->caller = $caller;
-        $wrapAndServe->unit = $this;
+        $wrapAndServe->caller = $this;
+        $wrapAndServe->unit = $unit;
         $wrapAndServe->serve();
     }
 }

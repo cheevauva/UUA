@@ -12,6 +12,8 @@ use UUA\Servant\EventDispatcherServant;
 use UUA\Container\Container;
 use UUA\DemoApp\App\Event\WrongPasswordEvent;
 use UUA\DemoApp\App\EventListener\LogWrongPasswordEventListener;
+use UUA\DemoApp\App\Event\CounterEvent;
+use UUA\DemoApp\App\EventListener\CounterEventListener;
 
 class Bootstrap
 {
@@ -38,6 +40,10 @@ class Bootstrap
                 ],
             ],
             'events' => [
+                CounterEvent::class => [
+                    CounterEventListener::class,
+                    CounterEventListener::class,
+                ],
                 WrongPasswordEvent::class => [
                     LogWrongPasswordEventListener::class,
                 ],

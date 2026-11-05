@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace UUA\Servant;
 
 use UUA\Servant;
-use UUA\Unit;
 use UUA\ContainerConstructInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
