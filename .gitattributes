@@ -1,0 +1,5 @@
+/* export-ignore
+/src -export-ignore
+/src/** -export-ignore
+/docs/README.md -export-ignore
+/docs/ru.md -export-ignore
