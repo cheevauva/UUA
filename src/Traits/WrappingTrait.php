@@ -27,7 +27,7 @@ trait WrappingTrait
             $next->rootUnit = $this;
             $next->nextUnit = $prev;
 
-            $prev = fn() => $next->serve();
+            $prev = $next->serve(...);
         }
 
         if (empty($next)) {
