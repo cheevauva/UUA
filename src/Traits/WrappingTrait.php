@@ -15,14 +15,9 @@ trait WrappingTrait
     #[\Override]
     public function serve(): void
     {
-        $unitName = str_contains(get_debug_type($this), '@anonymous') ? get_parent_class($this) : $this::class;
-
         $prev = $this->process(...);
 
-        /** @var array<string, array<int, string>> $wrappers */
-        $wrappers = $this->container->get('wrappers');
-
-        foreach ($wrappers[$unitName] ?? [] as $wrapper) {
+        foreach ($this->wrappers() as $wrapper) {
             $next = Wrapper::as($wrapper::new($this->container));
             $next->rootUnit = $this;
             $next->nextUnit = $prev;
@@ -39,4 +34,28 @@ trait WrappingTrait
     }
 
     abstract protected function process(): void;
+    
+    /**
+     * @return array<class-string>
+     */
+    protected function wrappers(): array
+    {
+        /** @var array<class-string, array<class-string>> $wrappers */
+        $wrappers = $this->container->get('wrappers');
+
+        return $wrappers[$this->unitNameForWrapping()] ?? [];
+    }
+
+    /**
+     * @return class-string
+     */
+    protected function unitNameForWrapping(): string
+    {
+        if (str_contains(get_debug_type($this), '@anonymous')) {
+            // @phpstan-ignore-next-line
+            return get_parent_class($this);
+        }
+
+        return $this::class;
+    }
 }
