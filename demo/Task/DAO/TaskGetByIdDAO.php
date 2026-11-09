@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UUA\DemoApp\Task\DAO;
 
-use Psr\Container\ContainerInterface;
 use UUA\DemoApp\Task\Entity\TaskEntity;
 use UUA\DemoApp\Task\Mapper\TaskEntityFromRowMapper;
 use UUA\DemoApp\Task\Exception\TaskEntityNotFoundException;
@@ -13,13 +12,13 @@ class TaskGetByIdDAO extends \UUA\DAO
 {
 
     use \UUA\DemoApp\App\Database\DatabaseMainTrait;
-    use \UUA\Traits\WrapAndServeTrait;
+    use \UUA\Traits\WrappingTrait;
+    use \UUA\Traits\CallWithIdTrait;
 
-    public int $id;
     public protected(set) TaskEntity $task;
 
     #[\Override]
-    public function serve(): void
+    protected function process(): void
     {
         $stmt = $this->db()->prepare($this->getSQL());
         $stmt->execute($this->getParams());
@@ -31,7 +30,7 @@ class TaskGetByIdDAO extends \UUA\DAO
             throw new TaskEntityNotFoundException;
         }
 
-        $this->task = TaskEntityFromRowMapper::call($this->container, $row)->task;
+        $this->task = TaskEntityFromRowMapper::call($this, $row)->task;
     }
 
     protected function getSQL(): string
@@ -47,14 +46,5 @@ class TaskGetByIdDAO extends \UUA\DAO
         return [
             'id' => $this->id,
         ];
-    }
-
-    public static function call(ContainerInterface $container, int $id): self
-    {
-        $self = self::new($container);
-        $self->id = $id;
-        $self->serve();
-
-        return $self;
     }
 }

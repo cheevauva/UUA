@@ -16,9 +16,9 @@ class TaskSaveServant extends \UUA\Servant
     public function serve(): void
     {
         if (isset($this->task->id)) {
-            TaskUpdateDAO::call($this->container, $this->task);
+            TaskUpdateDAO::call($this, $this->task);
         } else {
-            TaskInsertDAO::call($this->container, $this->task);
+            TaskInsertDAO::call($this, $this->task);
         }
     }
 }

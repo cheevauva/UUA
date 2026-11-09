@@ -9,7 +9,7 @@ use Psr\Container\ContainerInterface;
 trait ContainerTrait
 {
 
-    protected ContainerInterface $container;
+    public protected(set) ContainerInterface $container;
 
     public function __construct(ContainerInterface $container)
     {

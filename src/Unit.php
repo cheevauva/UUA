@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UUA;
 
-abstract class Unit implements UnitInterface
+abstract class Unit implements UnitInterface, WithContainterInterface
 {
 
     use Traits\AsTrait;

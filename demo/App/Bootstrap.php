@@ -34,9 +34,7 @@ class Bootstrap
             EventDispatcherInterface::class => fn() => EventDispatcherServant::singleton($c),
             'wrappers' => [
                 TaskGetByIdDAO::class => [
-                    'any' => [
-                        UserRetrieveWhenTaskGetByIdWrapper::class,
-                    ],
+                    UserRetrieveWhenTaskGetByIdWrapper::class,
                 ],
             ],
             'events' => [

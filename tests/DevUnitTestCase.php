@@ -6,18 +6,17 @@ namespace UUA\Tests;
 
 use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use UUA\Unit;
-use UUA\Servant\WrapAndServeServant;
 use UUA\DemoApp\App\Database\DatabaseMain;
 use UUA\DemoApp\App\Bootstrap;
 use UUA\DemoApp\App\Servant\FileLoggerServant;
+use UUA\WithContainterInterface;
 
-abstract class DevUnitTestCase extends \PHPUnit\Framework\TestCase
+abstract class DevUnitTestCase extends \PHPUnit\Framework\TestCase implements WithContainterInterface
 {
 
     abstract public function testMain(): void;
 
-    protected ContainerInterface $container;
+    public protected(set) ContainerInterface $container;
 
     /**
      * @var array<string, string>
@@ -67,14 +66,6 @@ abstract class DevUnitTestCase extends \PHPUnit\Framework\TestCase
     {
         // @phpstan-ignore-next-line
         return $this->container->get(EventDispatcherInterface::class);
-    }
-
-    protected function wrapAndServe(Unit $unit): void
-    {
-        $wrapAndServe = WrapAndServeServant::singleton($this->container);
-        $wrapAndServe->caller = $this;
-        $wrapAndServe->unit = $unit;
-        $wrapAndServe->serve();
     }
 
     /**

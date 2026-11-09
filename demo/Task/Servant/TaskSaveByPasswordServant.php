@@ -33,7 +33,7 @@ class TaskSaveByPasswordServant extends \UUA\Servant
             throw $ex;
         }
 
-        TaskSaveServant::call($this->container, $this->task);
+        TaskSaveServant::call($this, $this->task);
     }
 
     protected function process(): void
@@ -42,6 +42,6 @@ class TaskSaveByPasswordServant extends \UUA\Servant
             throw new TaskSaveWrongPasswordException();
         }
 
-        TaskSaveServant::call($this->container, $this->task);
+        TaskSaveServant::call($this, $this->task);
     }
 }

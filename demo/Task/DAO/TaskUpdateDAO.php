@@ -20,7 +20,7 @@ class TaskUpdateDAO extends \UUA\DAO
     #[\Override]
     public function serve(): void
     {
-        $this->row = TaskEntityToRowMapper::call($this->container, $this->task)->row;
+        $this->row = TaskEntityToRowMapper::call($this, $this->task)->row;
         //
         $stmt = $this->db()->prepare($this->getSQL());
         $stmt->execute($this->getParams());

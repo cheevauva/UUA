@@ -33,7 +33,7 @@ class DevTaskGetByIdDAOTest extends \UUA\Tests\DevUnitTestCase
     #[\Override]
     public function testMain(): void
     {
-        $task = TaskGetByIdDAO::call($this->container, 1)->task;
+        $task = TaskGetByIdDAO::call($this, 1)->task;
 
         self::assertEquals('SELECT * FROM tasks WHERE id = :id', self::$sql);
         self::assertEquals([
@@ -46,7 +46,7 @@ class DevTaskGetByIdDAOTest extends \UUA\Tests\DevUnitTestCase
     {
         $this->expectException(TaskEntityNotFoundException::class);
         
-        TaskGetByIdDAO::call($this->container, 2)->task;
+        TaskGetByIdDAO::call($this, 2)->task;
     }
 
     #[\Override]

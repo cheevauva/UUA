@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace UUA;
 
-use UUA\Unit;
-
 abstract class Wrapper extends Unit
 {
 
     public Unit $rootUnit;
-    public Unit $nextUnit;
+    public \Closure $nextUnit;
 
     #[\Override]
     public function serve(): void
     {
         $this->onBefore();
-        $this->nextUnit->serve();
+        ($this->nextUnit)();
         $this->onAfter();
     }
 

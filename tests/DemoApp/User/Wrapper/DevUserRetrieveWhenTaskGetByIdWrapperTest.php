@@ -34,10 +34,7 @@ class DevUserRetrieveWhenTaskGetByIdWrapperTest extends \UUA\Tests\DevUnitTestCa
     {
         self::$task->assignedUserId = 2;
 
-        $taskById = TaskGetByIdDAO::new($this->container);
-        $taskById->id = 1;
-        
-        $this->wrapAndServe($taskById);
+        $taskById = TaskGetByIdDAO::call($this, 1);
 
         $user = UserEntity::as($taskById->task->attr('user'));
 
@@ -47,10 +44,7 @@ class DevUserRetrieveWhenTaskGetByIdWrapperTest extends \UUA\Tests\DevUnitTestCa
 
     public function testEmptyAssignedUser(): void
     {
-        $taskById = TaskGetByIdDAO::new($this->container);
-        $taskById->id = 1;
-        
-        $this->wrapAndServe($taskById);
+        $taskById = TaskGetByIdDAO::call($this, 1);
 
         $user = $taskById->task->attr('user');
 
@@ -65,7 +59,7 @@ class DevUserRetrieveWhenTaskGetByIdWrapperTest extends \UUA\Tests\DevUnitTestCa
             TaskGetByIdDAO::class => fn() => new class($c) extends TaskGetByIdDAO {
 
                 #[\Override]
-                public function serve(): void
+                protected function process(): void
                 {
                     $this->task = DevUserRetrieveWhenTaskGetByIdWrapperTest::$task;
                 }
@@ -73,7 +67,7 @@ class DevUserRetrieveWhenTaskGetByIdWrapperTest extends \UUA\Tests\DevUnitTestCa
             UserGetByIdDAO::class => fn() => new class($c) extends UserGetByIdDAO {
 
                 #[\Override]
-                public function serve(): void
+                protected function process(): void
                 {
                     $this->user = DevUserRetrieveWhenTaskGetByIdWrapperTest::$user;
                     $this->user->id = 2;

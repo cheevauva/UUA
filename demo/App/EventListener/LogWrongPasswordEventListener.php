@@ -13,7 +13,7 @@ class LogWrongPasswordEventListener extends \UUA\EventListener
     public function __invoke(object $event): void
     {
         if ($event instanceof WrongPasswordEvent) {
-            $logger = FileLoggerServant::new($this->container);
+            $logger = FileLoggerServant::new($this);
             $logger->message = sprintf('Пользователь указан некорректный пароль - "%s"', $event->wrongPassword);
             $logger->serve();
         }

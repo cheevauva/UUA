@@ -22,7 +22,7 @@ class UserRetrieveWhenTaskGetByIdWrapper extends \UUA\Wrapper
         $task = TaskGetByIdDAO::as($this->rootUnit)->task;
 
         if ($task->assignedUserId) {
-            $task->withAttr('user', UserGetByIdDAO::call($this->container, $task->assignedUserId)->user);
+            $task->withAttr('user', UserGetByIdDAO::call($this, $task->assignedUserId)->user);
         }
     }
 }

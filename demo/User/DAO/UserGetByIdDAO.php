@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UUA\DemoApp\User\DAO;
 
-use Psr\Container\ContainerInterface;
 use UUA\DemoApp\User\Entity\UserEntity;
 use UUA\DemoApp\User\Mapper\UserEntityFromRowMapper;
 use UUA\DemoApp\User\Exception\UserEntityNotFoundException;
@@ -13,13 +12,13 @@ class UserGetByIdDAO extends \UUA\DAO
 {
 
     use \UUA\DemoApp\App\Database\DatabaseMainTrait;
-    use \UUA\Traits\WrapAndServeTrait;
+    use \UUA\Traits\WrappingTrait;
+    use \UUA\Traits\CallWithIdTrait;
 
-    public int $id;
     public protected(set) UserEntity $user;
 
     #[\Override]
-    public function serve(): void
+    protected function process(): void
     {
         $stmt = $this->db()->prepare($this->getSQL());
         $stmt->execute($this->getParams());
@@ -31,7 +30,7 @@ class UserGetByIdDAO extends \UUA\DAO
             throw new UserEntityNotFoundException;
         }
 
-        $this->user = UserEntityFromRowMapper::call($this->container, $row)->user;
+        $this->user = UserEntityFromRowMapper::call($this, $row)->user;
     }
 
     protected function getSQL(): string
@@ -49,12 +48,4 @@ class UserGetByIdDAO extends \UUA\DAO
         ];
     }
 
-    public static function call(ContainerInterface $container, int $id): self
-    {
-        $self = self::new($container);
-        $self->id = $id;
-        $self->serve();
-
-        return $self;
-    }
 }

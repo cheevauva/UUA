@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace UUA;
 
-abstract class EventListener implements ContainerConstructInterface
+abstract class EventListener implements ContainerConstructInterface, WithContainterInterface
 {
 
     use Traits\ContainerTrait;

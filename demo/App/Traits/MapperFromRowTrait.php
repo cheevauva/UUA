@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace UUA\DemoApp\App\Traits;
 
 use Psr\Container\ContainerInterface;
+use UUA\WithContainterInterface;
 
 trait MapperFromRowTrait
 {
@@ -61,11 +62,11 @@ trait MapperFromRowTrait
     }
 
     /**
-     * @param ContainerInterface $container
+     * @param WithContainterInterface|ContainerInterface $container
      * @param array<string, string|int|float|null|bool> $row
      * @return self
      */
-    public static function call(ContainerInterface $container, array $row): self
+    public static function call(WithContainterInterface|ContainerInterface $container, array $row): self
     {
         $self = self::new($container);
         $self->row = $row;

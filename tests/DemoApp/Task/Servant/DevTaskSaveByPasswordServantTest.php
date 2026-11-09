@@ -32,7 +32,7 @@ class DevTaskSaveByPasswordServantTest extends \UUA\Tests\DevUnitTestCase
         $task->id = null;
         $task->description = 'Description';
 
-        $saveByPassword = TaskSaveByPasswordServant::new($this->container);
+        $saveByPassword = TaskSaveByPasswordServant::new($this);
         $saveByPassword->task = $task;
         $saveByPassword->password = 'password';
         $saveByPassword->serve();
@@ -50,7 +50,7 @@ class DevTaskSaveByPasswordServantTest extends \UUA\Tests\DevUnitTestCase
         $task->id = null;
         $task->description = 'Description';
 
-        $saveByPassword = TaskSaveByPasswordServant::new($this->container);
+        $saveByPassword = TaskSaveByPasswordServant::new($this);
         $saveByPassword->task = $task;
         $saveByPassword->password = 'password1';
         $saveByPassword->serve();
@@ -66,7 +66,7 @@ class DevTaskSaveByPasswordServantTest extends \UUA\Tests\DevUnitTestCase
         $task->id = null;
         $task->description = 'Description';
 
-        $saveByPassword = TaskSaveByPasswordServant::new($this->container);
+        $saveByPassword = TaskSaveByPasswordServant::new($this);
         $saveByPassword->task = $task;
         $saveByPassword->password = 'password1';
         $saveByPassword->serve();
