@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace UUA\Traits;
 
-use UUA\Unit;
 use UUA\Wrapper;
 
 trait WrappingTrait
@@ -15,7 +14,7 @@ trait WrappingTrait
     #[\Override]
     public function serve(): void
     {
-        $prev = $this->process(...);
+        $prev = $this->run(...);
 
         foreach ($this->wrappers() as $wrapper) {
             $next = Wrapper::as($wrapper::new($this->container));
@@ -26,15 +25,14 @@ trait WrappingTrait
         }
 
         if (empty($next)) {
-            $this->process();
-            return;
+            $this->run();
+        } else {
+            $next->serve();
         }
-
-        Unit::as($next)->serve();
     }
 
-    abstract protected function process(): void;
-    
+    abstract protected function run(): void;
+
     /**
      * @return array<class-string>
      */
@@ -51,11 +49,13 @@ trait WrappingTrait
      */
     protected function unitNameForWrapping(): string
     {
-        if (str_contains(get_debug_type($this), '@anonymous')) {
-            // @phpstan-ignore-next-line
-            return get_parent_class($this);
-        }
+        $unitName = $this::class;
 
-        return $this::class;
+        if (str_contains($unitName, '@anonymous')) {
+            $unitName = get_parent_class($unitName);
+        }
+        
+        // @phpstan-ignore-next-line
+        return $unitName;
     }
 }

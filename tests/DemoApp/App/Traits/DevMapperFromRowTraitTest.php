@@ -61,7 +61,7 @@ class DevMapperFromRowTraitTest extends \UUA\Tests\DevUnitTestCase
             public ?\DateTimeInterface $dateCreated;
 
             #[\Override]
-            public function serve(): void
+            protected function run(): void
             {
                 $this->payload = $this->json('payload');
                 $this->enabled = $this->bool('enabled');

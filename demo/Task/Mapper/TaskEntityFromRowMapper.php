@@ -14,7 +14,7 @@ class TaskEntityFromRowMapper extends \UUA\Mapper
     public TaskEntity $task;
 
     #[\Override]
-    public function serve(): void
+    protected function run(): void
     {
         $task = $this->task = new TaskEntity;
         $task->id = $this->int('id');

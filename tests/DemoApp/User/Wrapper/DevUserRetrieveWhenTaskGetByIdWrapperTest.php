@@ -59,7 +59,7 @@ class DevUserRetrieveWhenTaskGetByIdWrapperTest extends \UUA\Tests\DevUnitTestCa
             TaskGetByIdDAO::class => fn() => new class($c) extends TaskGetByIdDAO {
 
                 #[\Override]
-                protected function process(): void
+                protected function run(): void
                 {
                     $this->task = DevUserRetrieveWhenTaskGetByIdWrapperTest::$task;
                 }
@@ -67,7 +67,7 @@ class DevUserRetrieveWhenTaskGetByIdWrapperTest extends \UUA\Tests\DevUnitTestCa
             UserGetByIdDAO::class => fn() => new class($c) extends UserGetByIdDAO {
 
                 #[\Override]
-                protected function process(): void
+                protected function run(): void
                 {
                     $this->user = DevUserRetrieveWhenTaskGetByIdWrapperTest::$user;
                     $this->user->id = 2;

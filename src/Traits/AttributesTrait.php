@@ -21,6 +21,8 @@ trait AttributesTrait
      */
     public function attr(string $attr): mixed
     {
-        return $this->attributes[$attr] ?? null;
+        $value = $this->attributes[$attr] ?? null;
+
+        return $value instanceof \Closure ? $value() : $value;
     }
 }

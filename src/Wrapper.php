@@ -11,7 +11,7 @@ abstract class Wrapper extends Unit
     public \Closure $nextUnit;
 
     #[\Override]
-    public function serve(): void
+    protected function run(): void
     {
         $this->onBefore();
         ($this->nextUnit)();

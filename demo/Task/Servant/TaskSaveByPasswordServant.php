@@ -19,7 +19,7 @@ class TaskSaveByPasswordServant extends \UUA\Servant
     public TaskEntity $task;
 
     #[\Override]
-    public function serve(): void
+    protected function run(): void
     {
         (new CounterEvent())->dispatch($this->eventDispatcher());
 

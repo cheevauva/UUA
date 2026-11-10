@@ -45,7 +45,7 @@ class DevWrongPasswordEventTest extends \UUA\Tests\DevUnitTestCase
             FileLoggerServant::class => fn() => new class($c) extends FileLoggerServant {
 
                 #[\Override]
-                public function serve(): void
+                protected function run(): void
                 {
                     DevWrongPasswordEventTest::$message = $this->message;
                     DevWrongPasswordEventTest::$context = $this->context;

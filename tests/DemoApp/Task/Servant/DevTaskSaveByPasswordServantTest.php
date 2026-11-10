@@ -79,7 +79,7 @@ class DevTaskSaveByPasswordServantTest extends \UUA\Tests\DevUnitTestCase
             TaskSaveServant::class => fn() => new class($c) extends TaskSaveServant {
 
                 #[\Override]
-                public function serve(): void
+                protected function run(): void
                 {
                     DevTaskSaveByPasswordServantTest::$save = $this;
                 }

@@ -15,7 +15,7 @@ class TaskEntityToRowMapper extends \UUA\Mapper
     public array $row;
 
     #[\Override]
-    public function serve(): void
+    protected function run(): void
     {
         $this->row = [
             'description' => $this->task->description,

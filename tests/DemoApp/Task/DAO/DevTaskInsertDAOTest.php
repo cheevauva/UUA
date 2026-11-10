@@ -72,7 +72,7 @@ class DevTaskInsertDAOTest extends \UUA\Tests\DevUnitTestCase
             TaskEntityToRowMapper::class => fn() => new class($c) extends TaskEntityToRowMapper {
 
                 #[\Override]
-                public function serve(): void
+                protected function run(): void
                 {
                     DevTaskInsertDAOTest::$mapper = $this;
 

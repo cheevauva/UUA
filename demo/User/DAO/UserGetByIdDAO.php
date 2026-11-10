@@ -18,7 +18,7 @@ class UserGetByIdDAO extends \UUA\DAO
     public protected(set) UserEntity $user;
 
     #[\Override]
-    protected function process(): void
+    protected function run(): void
     {
         $stmt = $this->db()->prepare($this->getSQL());
         $stmt->execute($this->getParams());

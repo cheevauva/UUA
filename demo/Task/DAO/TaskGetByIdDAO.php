@@ -18,7 +18,7 @@ class TaskGetByIdDAO extends \UUA\DAO
     public protected(set) TaskEntity $task;
 
     #[\Override]
-    protected function process(): void
+    protected function run(): void
     {
         $stmt = $this->db()->prepare($this->getSQL());
         $stmt->execute($this->getParams());
@@ -47,4 +47,5 @@ class TaskGetByIdDAO extends \UUA\DAO
             'id' => $this->id,
         ];
     }
+
 }

@@ -56,7 +56,7 @@ class DevTaskSaveServantTest extends \UUA\Tests\DevUnitTestCase
             TaskUpdateDAO::class => fn() => new class($c) extends TaskUpdateDAO {
 
                 #[\Override]
-                public function serve(): void
+                protected function run(): void
                 {
                     DevTaskSaveServantTest::$update = $this;
                 }
@@ -64,7 +64,7 @@ class DevTaskSaveServantTest extends \UUA\Tests\DevUnitTestCase
             TaskInsertDAO::class => fn() => new class($c) extends TaskInsertDAO {
 
                 #[\Override]
-                public function serve(): void
+                protected function run(): void
                 {
                     DevTaskSaveServantTest::$insert = $this;
 

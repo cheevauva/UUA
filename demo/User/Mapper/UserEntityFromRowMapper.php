@@ -14,7 +14,7 @@ class UserEntityFromRowMapper extends \UUA\Mapper
     public UserEntity $user;
 
     #[\Override]
-    public function serve(): void
+    protected function run(): void
     {
         $task = $this->user = new UserEntity;
         $task->id = $this->int('id');

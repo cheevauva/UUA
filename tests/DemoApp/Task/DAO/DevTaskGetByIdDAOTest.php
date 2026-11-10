@@ -78,7 +78,7 @@ class DevTaskGetByIdDAOTest extends \UUA\Tests\DevUnitTestCase
             TaskEntityFromRowMapper::class => fn() => new class($c) extends TaskEntityFromRowMapper {
 
                 #[\Override]
-                public function serve(): void
+                protected function run(): void
                 {
                     DevTaskGetByIdDAOTest::$mapper = $this;
 

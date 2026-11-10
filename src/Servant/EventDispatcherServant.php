@@ -43,7 +43,7 @@ class EventDispatcherServant extends Servant implements EventDispatcherInterface
     }
 
     #[\Override]
-    public function serve(): void
+    protected function run(): void
     {
         $event = $this->event;
 

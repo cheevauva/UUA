@@ -19,7 +19,7 @@ class FileLoggerServant extends \UUA\Servant
     public string $filename = 'demo.log';
 
     #[\Override]
-    public function serve(): void
+    protected function run(): void
     {
         $message = sprintf("[%s] [%s] %s %s\n", $this->currentTime()->format('Y-m-d H:i:s'), $this->level, $this->message, json_encode($this->context, JSON_UNESCAPED_UNICODE));
 

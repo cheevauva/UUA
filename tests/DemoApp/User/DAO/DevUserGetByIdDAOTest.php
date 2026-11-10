@@ -78,7 +78,7 @@ class DevUserGetByIdDAOTest extends \UUA\Tests\DevUnitTestCase
             UserEntityFromRowMapper::class => fn() => new class($c) extends UserEntityFromRowMapper {
 
                 #[\Override]
-                public function serve(): void
+                protected function run(): void
                 {
                     DevUserGetByIdDAOTest::$mapper = $this;
 

@@ -13,7 +13,7 @@ class TaskSaveServant extends \UUA\Servant
     use \UUA\DemoApp\Task\Traits\TaskCallTrait;
 
     #[\Override]
-    public function serve(): void
+    protected function run(): void
     {
         if (isset($this->task->id)) {
             TaskUpdateDAO::call($this, $this->task);

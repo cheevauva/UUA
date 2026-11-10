@@ -18,7 +18,7 @@ class TaskInsertDAO extends \UUA\DAO
     protected array $row;
 
     #[\Override]
-    public function serve(): void
+    protected function run(): void
     {
         $this->row = TaskEntityToRowMapper::call($this, $this->task)->row;
         //
